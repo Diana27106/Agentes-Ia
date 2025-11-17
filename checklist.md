@@ -19,8 +19,8 @@
 
 | Task                                             | Phase          | Complexity | Dependencies | Status  |
 | ------------------------------------------------ | -------------- | ---------- | ------------ | ------- |
-| Configurar SQLite3 (`db.js`)                     | Inicialización | 🟢 Baja    | sqlite3      | Pending |
-| Crear tabla de traducciones                      | Desarrollo     | 🟡 Media   | db.js        | Pending |
+| Configurar SQLite3 (`db.js`)                     | Inicialización | 🟢 Baja    | sqlite3      | Done    |
+| Crear tabla de traducciones                      | Desarrollo     | 🟡 Media   | db.js        | Done    |
 | Implementar inserción automática al traducir     | Integración    | 🟡 Media   | services.js  | Pending |
 | Implementar endpoints de historial (GET, DELETE) | Desarrollo     | 🟡 Media   | routes.js    | Pending |
 | Pruebas de persistencia y consultas              | Testing        | 🟡 Media   | sqlite3      | Pending |
