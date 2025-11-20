@@ -41,12 +41,12 @@
 
 ## 🐳 **Infraestructura**
 
-| Task                                 | Phase          | Complexity | Dependencies   | Status  |
-| ------------------------------------ | -------------- | ---------- | -------------- | ------- |
-| Crear `Dockerfile` del backend       | Inicialización | 🟡 Media   | Node.js        | Pending |
-| Configurar `docker-compose.yml`      | Integración    | 🟡 Media   | Docker, Ollama | Pending |
-| Configurar `.env` y `.env.example`   | Configuración  | 🟢 Baja    | dotenv         | Pending |
-| Crear `.gitignore` y `.dockerignore` | Configuración  | 🟢 Baja    | —              | Pending |
+| Task                                 | Phase          | Complexity | Dependencies   | Status      |
+| ------------------------------------ | -------------- | ---------- | -------------- | ----------- |
+| Crear `Dockerfile` del backend       | Inicialización | 🟡 Media   | Node.js        | In progress |
+| Configurar `docker-compose.yml`      | Integración    | 🟡 Media   | Docker, Ollama | Pending     |
+| Configurar `.env` y `.env.example`   | Configuración  | 🟢 Baja    | dotenv         | Pending     |
+| Crear `.gitignore` y `.dockerignore` | Configuración  | 🟢 Baja    | —              | Pending     |
 
 ---
 
@@ -63,10 +63,10 @@
 
 ## 🧾 **Documentación**
 
-| Task                          | Phase         | Complexity | Dependencies | Status  |
-| ----------------------------- | ------------- | ---------- | ------------ | ------- |
-| Crear `README.md` completo    | Documentación | 🟡 Media   | —            | Pending |
-| Redactar `checklist.md`       | Documentación | 🟢 Baja    | README.md    | Pending |
-| Agregar comentarios en código | Mantenimiento | 🟢 Baja    | —            | Pending |
+| Task                          | Phase         | Complexity | Dependencies | Status      |
+| ----------------------------- | ------------- | ---------- | ------------ | ----------- |
+| Crear `README.md` completo    | Documentación | 🟡 Media   | —            | In progress |
+| Redactar `checklist.md`       | Documentación | 🟢 Baja    | README.md    | In progress |
+| Agregar comentarios en código | Mantenimiento | 🟢 Baja    | —            | Pending     |
 
 ---
