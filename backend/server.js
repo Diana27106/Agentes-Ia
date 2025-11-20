@@ -1,23 +1,34 @@
-// CONFIGURACION INICIAL PARA USAR EL MODULO ES6 SQLITE
+// backend/server.js
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import routes from "./routes.js";
 
-import express from 'express'; // Importamos Express
-import { initializeDatabase } from './db.js'; // Importamos la función para inicializar la base de datos
-
-// También necesitarás importar el enrutador
-import router from './routes.js';
+// Cargar variables de entorno (.env)
+dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3005;
 
-// 1. Inicializa la base de datos
-initializeDatabase();
-
-// Configuración de middlewares
+// Middlewares
+app.use(cors());
 app.use(express.json());
 
-// Configuración de rutas
-app.use('/', router);
+// Rutas principales
+app.use("/api", routes);
 
+// Manejo de errores 404
+app.use((req, res, next) => {
+    res.status(404).json({ error: "Ruta no encontrada" });
+});
+
+// Manejo global de errores
+app.use((err, req, res, next) => {
+    console.error("Error:", err.stack);
+    res.status(500).json({ error: "Error interno del servidor" });
+});
+
+// Levantar servidor
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
-    console.log(`Servidor Express escuchando en el puerto ${PORT}`);
+    console.log(`Servidor escuchando en http://localhost:${PORT}`);
 });
