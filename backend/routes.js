@@ -1,13 +1,10 @@
 // backend/routes.js
 import express from "express";
-import { v4 as uuidv4 } from "uuid";
+import * as translationService from "./services.js";
 
 const router = express.Router();
 
-// Base de datos simulada (en memoria)
-let translations = [];
-
-// Idiomas soportados (puedes ampliar)
+// Idiomas soportados
 const supportedLanguages = [
     { code: "es", name: "Español" },
     { code: "en", name: "Inglés" },
@@ -16,17 +13,21 @@ const supportedLanguages = [
     { code: "it", name: "Italiano" },
 ];
 
-// 1. GET /api/health
+/* =========================================================
+    1️⃣ HEALTH CHECK
+   ========================================================= */
 router.get("/health", (req, res) => {
     res.json({
         status: "ok",
         server: true,
-        ollama: true, // aquí podrías hacer un ping real si usas Ollama
+        ollama: true, // Aquí podrías hacer un ping real si usas Ollama
         timestamp: new Date().toISOString(),
     });
 });
 
-// 2. POST /api/translate
+/* =========================================================
+    2️⃣ TRANSLATE
+   ========================================================= */
 router.post("/translate", async (req, res) => {
     try {
         const { text, sourceLang, targetLang } = req.body;
@@ -41,7 +42,7 @@ router.post("/translate", async (req, res) => {
         if (sourceLang === targetLang)
             return res.status(400).json({ error: "El idioma de origen y destino deben ser diferentes" });
 
-        const validLangs = supportedLanguages.map((l) => l.code);
+        const validLangs = supportedLanguages.map(l => l.code);
         if (!validLangs.includes(sourceLang) || !validLangs.includes(targetLang))
             return res.status(400).json({ error: "Idiomas no soportados" });
 
@@ -49,10 +50,10 @@ router.post("/translate", async (req, res) => {
 
         // Prompt para traducción
         const prompt = `
-      Traduce lo siguiente del idioma ${sourceLang} al ${targetLang}:
-      "${text}"
-      Solo responde con la traducción final, sin explicaciones.
-    `;
+        Traduce lo siguiente del idioma ${sourceLang} al ${targetLang}:
+        "${text}"
+        Solo responde con la traducción final, sin explicaciones.
+        `;
 
         // Llamada al contenedor Ollama
         const response = await fetch(`${process.env.OLLAMA_HOST}/api/generate`, {
@@ -74,19 +75,17 @@ router.post("/translate", async (req, res) => {
         const translatedText = data.response.trim();
         const duration = Date.now() - start;
 
-        // Guardar en "BD"
-        const newTranslation = {
-            id: uuidv4(),
-            text,
-            translatedText,
-            sourceLang,
-            targetLang,
-            model: process.env.OLLAMA_MODEL,
-            duration,
-            createdAt: new Date().toISOString(),
-        };
+        // Guardar en la base de datos
+        const newTranslation = translationService.saveTranslation({
+            texto_origen: text,
+            idioma_origen: sourceLang,
+            texto_destino: translatedText,
+            idioma_destino: targetLang,
+        });
 
-        translations.push(newTranslation);
+        // Agregar información adicional
+        newTranslation.model = process.env.OLLAMA_MODEL;
+        newTranslation.duration = duration;
 
         res.json(newTranslation);
 
@@ -96,22 +95,21 @@ router.post("/translate", async (req, res) => {
     }
 });
 
-// 3. GET /api/translations
+/* =========================================================
+    3️⃣ GET ALL TRANSLATIONS
+   ========================================================= */
 router.get("/translations", (req, res) => {
-    const { sourceLang, targetLang, limit = 50 } = req.query;
-
-    let filtered = translations;
-
-    if (sourceLang) filtered = filtered.filter((t) => t.sourceLang === sourceLang);
-    if (targetLang) filtered = filtered.filter((t) => t.targetLang === targetLang);
-
-    res.json(filtered.slice(0, parseInt(limit)));
+    const { limit = 50 } = req.query;
+    const translations = translationService.getAllTranslations(parseInt(limit));
+    res.json(translations);
 });
 
-// 4. GET /api/translations/:id
+/* =========================================================
+    4️⃣ GET TRANSLATION BY ID
+   ========================================================= */
 router.get("/translations/:id", (req, res) => {
     const { id } = req.params;
-    const translation = translations.find((t) => t.id === id);
+    const translation = translationService.getTranslationById(id);
 
     if (!translation)
         return res.status(404).json({ error: "Traducción no encontrada" });
@@ -119,25 +117,30 @@ router.get("/translations/:id", (req, res) => {
     res.json(translation);
 });
 
-// 5. DELETE /api/translations/:id
+/* =========================================================
+    5️⃣ DELETE TRANSLATION BY ID
+   ========================================================= */
 router.delete("/translations/:id", (req, res) => {
     const { id } = req.params;
-    const initialLength = translations.length;
-    translations = translations.filter((t) => t.id !== id);
+    const deleted = translationService.deleteTranslation(id);
 
-    if (translations.length === initialLength)
+    if (!deleted)
         return res.status(404).json({ error: "Traducción no encontrada" });
 
     res.json({ message: `Traducción ${id} eliminada correctamente` });
 });
 
-// 6. DELETE /api/translations
+/* =========================================================
+    6️⃣ DELETE ALL TRANSLATIONS
+   ========================================================= */
 router.delete("/translations", (req, res) => {
-    translations = [];
+    translationService.clearTranslations();
     res.json({ message: "Historial de traducciones limpiado" });
 });
 
-// 7. GET /api/languages
+/* =========================================================
+    7️⃣ GET SUPPORTED LANGUAGES
+   ========================================================= */
 router.get("/languages", (req, res) => {
     res.json(supportedLanguages);
 });
