@@ -1,0 +1,298 @@
+/* Variables CSS para un manejo de colores fácil */
+:root {
+    --primary-color: #4a90e2;
+    --secondary-color: #005eff;
+    --background-color: #f7f9fc;
+    --card-background: #ffffff;
+    --text-color: #333333;
+    --light-text-color: #777777;
+    --border-color: #e0e6ed;
+    --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-hover: 0 6px 16px rgba(0, 0, 0, 0.12);
+    --font-stack: "Poppins", sans-serif;
+}
+
+/* Base y Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-stack);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Encabezado */
+header {
+    text-align: center;
+    padding: 30px 0;
+}
+
+header h1 {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+}
+
+header p {
+    color: var(--light-text-color);
+}
+
+/* Contenedor Principal del Traductor */
+.translator-container {
+    background-color: var(--card-background);
+    border-radius: 12px;
+    box-shadow: var(--shadow-light);
+    width: 100%;
+    max-width: 900px;
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+/* Selector de Idiomas */
+.language-selector {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 20px;
+}
+
+.select-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+}
+
+.select-wrapper label {
+    font-size: 0.9em;
+    font-weight: 600;
+    color: var(--light-text-color);
+    margin-bottom: 5px;
+}
+
+select {
+    padding: 10px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--background-color);
+    font-size: 1em;
+    font-family: var(--font-stack);
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+#swap-btn {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: var(--primary-color);
+    transition: transform 0.2s, color 0.2s;
+    padding: 10px;
+}
+
+#swap-btn:hover {
+    transform: rotate(180deg) scale(1.1);
+    color: var(--secondary-color);
+}
+
+/* Áreas de Texto */
+.text-areas-container {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.text-area-box {
+    flex: 1;
+    position: relative;
+}
+
+textarea {
+    width: 100%;
+    height: 200px;
+    padding: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-family: var(--font-stack);
+    resize: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+}
+
+textarea#target-text {
+    background-color: var(--background-color);
+    /* Fondo ligeramente gris para el output */
+    cursor: default;
+}
+
+.char-count {
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+    font-size: 0.8em;
+    color: var(--light-text-color);
+}
+
+#copy-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.2s;
+}
+
+#copy-btn:hover {
+    background-color: var(--secondary-color);
+}
+
+/* Controles y Botón CTA */
+.controls-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cta-button {
+    padding: 12px 30px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.cta-button:hover {
+    background-color: #3a7bd5;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-light);
+}
+
+.cta-button:active {
+    transform: translateY(0);
+}
+
+.message-area {
+    font-size: 0.9em;
+    color: var(--light-text-color);
+}
+
+/* Historial (Sección Opcional) */
+.history-container {
+    width: 100%;
+    max-width: 900px;
+    background-color: var(--card-background);
+    border-radius: 12px;
+    box-shadow: var(--shadow-light);
+    padding: 30px;
+}
+
+.history-container h2 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+#history-list {
+    list-style: none;
+    margin-bottom: 15px;
+}
+
+#history-list li {
+    padding: 10px;
+    border-bottom: 1px dashed var(--border-color);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#history-list li:hover {
+    background-color: var(--background-color);
+}
+
+.secondary-button {
+    padding: 8px 15px;
+    background: none;
+    border: 1px solid var(--border-color);
+    color: var(--light-text-color);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: border-color 0.2s, color 0.2s;
+}
+
+.secondary-button:hover {
+    border-color: var(--text-color);
+    color: var(--text-color);
+}
+
+/* Footer */
+footer {
+    margin-top: auto;
+    padding: 15px 0;
+    text-align: center;
+    font-size: 0.85em;
+    color: var(--light-text-color);
+    width: 100%;
+    max-width: 900px;
+    border-top: 1px solid var(--border-color);
+}
+
+/* Media Queries para Responsiveness */
+@media (max-width: 768px) {
+    .text-areas-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .select-wrapper {
+        width: 45%;
+    }
+
+    .translator-container {
+        padding: 20px;
+    }
+
+    .controls-area {
+        flex-direction: column;
+        gap: 15px;
+        align-items: stretch;
+    }
+
+    .message-area {
+        text-align: center;
+    }
+
+}
