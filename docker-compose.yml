@@ -21,10 +21,5 @@ services:
       - ./backend/.env
     depends_on:
       - traductor-ia
-    # Quitar el volumen para evitar sobreescribir /app
-    # Si quieres hot-reload en desarrollo, añade el volumen y asegúrate que todos los archivos están en ./backend
-    # volumes:
-    #   - ./backend:/app
-
 volumes:
   ollama_models:
