@@ -9,8 +9,6 @@ const supportedLanguages = [
     { code: "es", name: "Español" },
     { code: "en", name: "Inglés" },
     { code: "fr", name: "Francés" },
-    { code: "de", name: "Alemán" },
-    { code: "it", name: "Italiano" },
 ];
 
 /* =========================================================

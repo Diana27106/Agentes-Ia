@@ -25,7 +25,7 @@ export function saveTranslation({ texto_origen, idioma_origen, texto_destino, id
         id: result.lastInsertRowid,
         texto_origen,
         idioma_origen,
-        texto_desteno: texto_destino,
+        texto_destino: texto_destino,
         idioma_destino,
     };
 }
