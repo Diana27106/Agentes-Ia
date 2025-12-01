@@ -2,10 +2,13 @@ FROM node:20-bullseye
 
 WORKDIR /app
 
+# Copiar solo package.json para instalar dependencias
 COPY package*.json ./
 
+# Instalar dependencias en Linux (compila better-sqlite3)
 RUN npm install
 
+# Copiar todo el código
 COPY . .
 
 EXPOSE 4000
