@@ -285,7 +285,6 @@ footer {
         padding: 20px;
     }
 
-    .controls-area {}
 
     select:focus {
         outline: none;
@@ -535,3 +534,4 @@ footer {
     .delete-btn:hover {
         opacity: 1;
     }
+}
