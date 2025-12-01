@@ -3,7 +3,7 @@
  * Handles API interactions and UI updates.
  */
 
-const API_URL = 'http://localhost:3005/api';
+const API_URL = 'http://localhost:4000/api';
 
 document.addEventListener('DOMContentLoaded', () => {
     // DOM Elements
