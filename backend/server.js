@@ -3,9 +3,13 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import routes from "./routes.js";
+import { initializeDatabase } from "./db.js";
 
 // Cargar variables de entorno (.env)
 dotenv.config();
+
+// Inicializar base de datos (crea tabla si no existe)
+initializeDatabase();
 
 const app = express();
 
@@ -28,7 +32,7 @@ app.use((err, req, res, next) => {
 });
 
 // Levantar servidor
-const PORT = process.env.PORT;
-app.listen(PORT, () => {
-    console.log(`Servidor escuchando en http://localhost:${PORT}`);
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Servidor escuchando en http://0.0.0.0:${PORT}`);
 });
