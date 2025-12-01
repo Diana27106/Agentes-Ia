@@ -1,79 +1,232 @@
-# 🌐 Traductor IA
-
-## Descripción general
-
-**Traductor IA** es una aplicación **full-stack** que permite traducir texto entre tres idiomas: **Español**, **Inglés** y **Francés**, en cualquier dirección (es→en, es→fr, en→fr, etc.).
-
-El proyecto integra un **backend en Node.js + Express** conectado a **Ollama**, un modelo de lenguaje local, para realizar las traducciones mediante IA. Las traducciones se almacenan automáticamente en una base de datos **SQLite3**, lo que permite mantener un **historial persistente** de las operaciones realizadas.
-
-El **frontend**, desarrollado en **HTML, CSS y JavaScript vanilla**, proporciona una interfaz intuitiva donde el usuario puede:
-
-- Ingresar texto a traducir
-- Seleccionar idioma de origen y destino
-- Ver la traducción en tiempo real
-- Consultar el historial de traducciones anteriores
-- Filtrar o eliminar traducciones guardadas
+# 🌐 Proyecto: Traductor IA con Ollama + SQLite + Frontend Web
 
 ---
 
-## 🧱 Estructura general del proyecto
+## Autores
 
+- **Diana (Frontend, DB, DevOps, QA)**
+- **Ángel (Backend, API, Integración IA, DevOps)**
+
+---
+
+# 1. Descripción del proyecto
+
+Este proyecto implementa una **aplicación web completa** (full-stack) que permite traducir textos utilizando un **modelo IA ejecutado en un contenedor (Docker) a través de Ollama**.
+Incluye:
+
+- **Backend con Node.js + Express**
+- **Base de datos SQLite** para almacenar el historial
+- **Frontend HTML/CSS/JS vanilla**
+- **Contenedores Docker (backend + frontend + ollama)**
+- **API REST completa** para traducción y gestión del historial
+
+El objetivo es desarrollar un agente de traducción funcional, documentado y preparado para producción mediante Docker Compose.
+
+---
+
+## 🖥️ 2. Requisitos del sistema (actualizado)
+
+**Software necesario**
+
+- Node.js (v18 o superior)
+- NPM (o Yarn)
+- SQLite3 (o el cliente que prefieras para inspeccionar la DB)
+- Docker y Docker Compose (opcional para despliegue)
+- Ollama instalado y funcionando localmente
+
+**Dependencias de backend (npm)**
+El backend utiliza las siguientes librerías (con versiones recomendadas):
+
+- `better-sqlite3` `^12.4.1`
+- `cors` `^2.8.5`
+- `dotenv` `^17.2.3`
+- `express` `^5.1.0`
+- `uuid` `^13.0.0`
+
+---
+
+# 3. Instalación
+
+## 3.1 Clonar el repositorio
+
+```bash
+git clone git@github.com:Diana27106/Agentes-Ia.git
+cd traductor-ia
 ```
 
-traductor-ia-diana-rg-angel-/
-│
-├── 📂 backend/
-│ ├── 📄 server.js # Servidor Express (punto de entrada)
-│ ├── 📄 routes.js # Definición de rutas de la API REST
-│ ├── 📄 services.js # Lógica de negocio: conexión a Ollama + gestión de historial
-│ ├── 📄 db.js # Configuración e inicialización de la base de datos SQLite3
-│ ├── 📂 db/
-│ │ └── 📄 traducciones.db # Base de datos generada (no versionada)
-│ ├── 🔐 .env # Variables de entorno (no versionado)
-│ ├── 📋 .env.example # Ejemplo de configuración
-│ ├── 🐳 Dockerfile # Imagen del servicio backend
-│ └── 📦 package.json # Dependencias y scripts del backend
-│
-├── 📂 frontend/
-│ ├── 📄 index.html # Interfaz principal
-│ ├── 📄 style.css # Estilos CSS (vanilla)
-│ ├── 📄 main.js # Lógica del frontend
-│ └── 📂 images/ # Recursos o capturas opcionales
-│
-├── 🧪 validacion.http # Pruebas manuales de endpoints API
-├── 🐳 docker-compose.yml # Orquestación de contenedores (backend + Ollama)
-├── 📖 README.md # Documentación completa del proyecto
-├── ✅ checklist.md # Control del progreso del desarrollo
-└── 🚫 .gitignore # Archivos y carpetas excluidas del control de versiones
+---
 
+## 3.2 Instalar dependencias
+
+### Backend:
+
+```bash
+cd backend
+npm install
+```
+
+### Dependencias
+
+Desde la carpeta `backend/` puedes instalar las dependencias con este comando:
+
+```bash
+cd backend
+npm install better-sqlite3@^12.4.1 cors@^2.8.5 dotenv@^17.2.3 express@^5.1.0 uuid@^13.0.0
+```
+
+> Alternativa: añade estas dependencias en `backend/package.json` y luego ejecuta `npm install` para instalarlas todas de una vez.
+
+### Frontend:
+
+(No requiere instalación, es HTML/CSS/JS)
+
+---
+
+## 3.3 Descargar el modelo de Ollama
+
+Asegúrate de tener Ollama instalado y ejecuta:
+
+```bash
+ollama pull mistral
 ```
 
 ---
 
-## 👩‍💻 Autores
+## 3.4 Configurar el archivo `.env`
 
-**[Diana Alejandra Radu Giju, Ángel ]**
+Dentro de `/backend/.env`:
+
+```
+PORT=
+HOST=
+SERVER_URL=
+OLLAMA_HOST=http://localhost:11434
+OLLAMA_MODEL=mistral:7b
+DB_PATH=./path/db.js
+MAX_TEXT_LENGTH=500
+```
 
 ---
 
-## 🧩 Requisitos del sistema
+# 4. Ejecución del proyecto
 
-### 🔧 Software necesario
+## 4.1 Ejecución en desarrollo (requiere 3 terminales)
 
-- **Node.js** v20 o superior
-- **npm** (incluido con Node)
-- **Ollama** instalado localmente (modelo: mistral:7b)
-- **SQLite3** (para la base de datos embebida)
-- **Docker + Docker Compose** V2
-- **Visual Studio Code** como editor
-- **Git** instalado
-- **Rest Client** en VC para validar
+### **Terminal 1 – Backend**
 
-### 📦 Dependencias principales
+```bash
+cd backend
+npm start
+```
 
-#### Backend
+### **Terminal 2 – Frontend**
 
-- `cors` — Comunicación entre frontend y backend en diferentes origenes
-- `express` — Servidor HTTP para la API REST
-- `sqlite3` — Base de datos local ligera
-- `dotenv` — Gestión de variables de entorno
+Usando un servidor simple:
+
+```bash
+cd frontend
+npx serve
+```
+
+O si usáis Live Server, basta con abrir index.html.
+
+### **Terminal 3 – Ollama**
+
+```bash
+ollama serve
+```
+
+---
+
+## 4.2 Ejecución con Docker Compose (1 solo comando)
+
+```bash
+docker compose up --build
+```
+
+---
+
+## 4.3 URLs de acceso
+
+| Servicio    | URL                                              |
+| ----------- | ------------------------------------------------ |
+| Frontend    | [http://localhost:5173](http://localhost:5173)   |
+| Backend API | [http://localhost:4000](http://localhost:4000)   |
+| Ollama      | [http://localhost:11434](http://localhost:11434) |
+
+---
+
+# 5. API – Endpoints
+
+---
+
+# 6. Estructura de carpetas
+
+```
+/project
+│
+├── backend
+│   ├── server.js          # Servidor Express y configuración general
+│   ├── routes.js          # Rutas REST
+│   ├── db.js              # Lógica de la base de datos
+│   ├── services.js        # Comunicación con la IA
+│   ├── db/
+│   │   └── traducciones.db # Base de datos
+│   ├── Dockerfile
+│   ├── node_modules
+│   ├── .dockerignore
+│   ├── package.json
+│   └── .env
+│
+├── frontend
+│   ├── index.html         # Interfaz principal
+│   ├── style.css         # Diseño visual
+│   ├── main.js             # Lógica de traducción e historial
+│   └── Dockerfile
+│
+├── docker-compose.yml
+├── checklist.md
+├── validacion.http
+├── .gitignore
+└── README.md
+```
+
+---
+
+# 7. Decisiones de diseño
+
+### **✔️ ¿Por qué SQLite3 en lugar de JSON?**
+
+- No requiere servidor externo
+- Mejor consistencia y consultas
+- Permite crecer el proyecto (joins, índices, migraciones)
+
+### **✔️ ¿Por qué JavaScript vanilla en el frontend?**
+
+- Código más ligero
+- Fácil despliegue en cualquier entorno
+
+### **✔️ ¿Por qué Ollama local?**
+
+- Computo 100% privado
+- Posibilidad de probar modelos offline
+- Instalación sencilla
+
+### **✔️ Limitaciones conocidas**
+
+- Traducciones largas pueden tardar
+- No existe autenticación
+- No hay soporte multisesión
+- El historial no tiene paginación
+
+---
+
+# 8. Extensiones futuras
+
+- Soporte para más idiomas
+- Caché de traducciones frecuentes
+- Detección automática del idioma
+- Exportar historial a CSV / PDF
+- Interfaz oscura (Dark Mode)
+- Integrar WebSockets para ver el progreso en tiempo real
+- Autenticación de usuarios
