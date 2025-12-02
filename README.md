@@ -158,6 +158,16 @@ docker compose up --build
 
 # 5. API – Endpoints
 
+| Método | Endpoint | Descripción | Cuerpo (JSON) / Params |
+| :--- | :--- | :--- | :--- |
+| `GET` | `/api/health` | Verifica el estado del servidor y conexión con Ollama | - |
+| `POST` | `/api/translate` | Traduce un texto | `{ "text": "Hola", "sourceLang": "es", "targetLang": "en" }` |
+| `GET` | `/api/translations` | Obtiene el historial de traducciones | `?limit=50` (opcional) |
+| `GET` | `/api/translations/:id` | Obtiene una traducción por ID | - |
+| `DELETE` | `/api/translations/:id` | Elimina una traducción por ID | - |
+| `DELETE` | `/api/translations` | Elimina todo el historial | - |
+| `GET` | `/api/languages` | Lista los idiomas soportados | - |
+
 ---
 
 # 6. Estructura de carpetas
