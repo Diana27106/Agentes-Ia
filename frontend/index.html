@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traductor IA</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="main.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <h1>Traductor</h1>
+    </header>
+
+    <main class="translator-container">
+        <div class="language-selector">
+            <div class="select-wrapper">
+                <label for="source-lang">Idioma Origen:</label>
+                <select id="source-lang">
+                    <option value="es">Español</option>
+                    <option value="en">Inglés</option>
+                    <option value="fr">Francés</option>
+                </select>
+            </div>
+            <button id="swap-btn" title="Intercambiar idiomas">🔄</button>
+            <div class="select-wrapper">
+                <label for="target-lang">Idioma Destino:</label>
+                <select id="target-lang">
+                    <option value="en">Inglés</option>
+                    <option value="es">Español</option>
+                    <option value="fr">Francés</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="text-areas-container">
+            <div class="text-area-box">
+                <textarea id="source-text" placeholder="Introduce el texto a traducir..."></textarea>
+                <span id="source-char-count" class="char-count">0/500</span>
+            </div>
+            <div class="text-area-box">
+                <textarea id="target-text" placeholder="La traducción aparecerá aquí." readonly></textarea>
+                <button id="copy-btn" title="Copiar traducción">📋</button>
+            </div>
+        </div>
+
+        <div class="controls-area">
+            <button id="translate-btn" class="cta-button">Traducir</button>
+            <p id="message-area" class="message-area"></p>
+        </div>
+    </main>
+
+    <section class="history-container">
+        <h2>Historial de Traducciones</h2>
+        <ul id="history-list">
+        </ul>
+        <button id="clear-history-btn" class="secondary-button">Limpiar Historial</button>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Traductor IA | 2º DAW</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+@baseUrl = http://localhost:4000/api
+
+### 1. Health Check
+GET {{baseUrl}}/health
+
+### 2. Translate (Valid)
+POST {{baseUrl}}/translate
+Content-Type: application/json
+
+{
+    "text": "Hello world",
+    "sourceLang": "en",
+    "targetLang": "es"
+}
+
+### 3. Translate (Error: Empty Text)
+POST {{baseUrl}}/translate
+Content-Type: application/json
+
+{
+    "text": "",
+    "sourceLang": "en",
+    "targetLang": "es"
+}
+
+### 4. Translate (Error: Same Languages)
+POST {{baseUrl}}/translate
+Content-Type: application/json
+
+{
+    "text": "Hello world",
+    "sourceLang": "en",
+    "targetLang": "en"
+}
+
+### 5. Get All Translations
+GET {{baseUrl}}/translations
+
+### 6. Get Supported Languages
+GET {{baseUrl}}/languages
+
+### 7. Get Translation by ID (Replace :id with a real ID from step 5)
+# @name getTranslation
+GET {{baseUrl}}/translations/8
+
+### 8. Delete Translation by ID (Replace :id with a real ID)
+DELETE {{baseUrl}}/translations/8
+
+### 9. Delete All Translations
+DELETE {{baseUrl}}/translations
